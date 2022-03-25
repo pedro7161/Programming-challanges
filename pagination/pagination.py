@@ -3,9 +3,9 @@ import time
 start=time.time()
 pagination = {
         "current_page":10,
-        "total_pages":5000,
-        "boundaries":1000,
-        "around":1000,
+        "total_pages":100,
+        "boundaries":2,
+        "around":1,
         }
 
 def boundaries(pagination,arr):
@@ -27,7 +27,11 @@ def around(pagination):
     for k in range(pagination["current_page"],front):
         arr.append(k)
     return boundaries(pagination,arr)
-
-print(around(pagination))
+if pagination["around"]>pagination["total_pages"] or pagination["boundaries"]>pagination["total_pages"]:
+    print("o around ou o boundaries é maior que as paginas")
+if pagination["current_page"]>pagination["total_pages"]:
+    print("o current page é maior que as paginas")
+else:
+    print(around(pagination))
 stop=time.time()
 print(stop-start)
