@@ -14,24 +14,28 @@ def start():
     
     while playing:
         # player1 turn
-        gameBoard,condition = player1Turn(gameBoard)
+        gameBoard, condition = player1Turn(gameBoard)
         # check for win
-        if condition == True:
-            print("Congratulations! You Player1 won!")
+        if condition:
+            print(f"Congratulations! {players['player1']} won!")
             playing = False
+            continue
 
         # player2 turn
-        gameBoard,condition = player2Turn(gameBoard)
+        gameBoard, condition = player2Turn(gameBoard)
         # check for win
-        if condition == True:
-            print("Congratulations! You Player2 won!")
+        if condition:
+            print(f"Congratulations! {players['player2']} won!")
             playing = False
         
 
-def player1Turn(gameBoard,condition = False):
-    print(players["player1"] + ", it's your turn!")
+def player1Turn(gameBoard, condition=False):
+    print(f"{players['player1']}, it's your turn!")
     print("Please enter the column number you want to place your piece in:")
-    column = input()
+    
+    # Ensure column is converted to an integer
+    column = int(input())
+    
     # place piece
     for i in range(5, -1, -1):
         if gameBoard[i][column] == 0:
@@ -39,20 +43,24 @@ def player1Turn(gameBoard,condition = False):
             break
 
     print(pd.DataFrame(gameBoard))
-    
-    return gameBoard,condition
+    return gameBoard, condition
 
 
-
-
-def player2Turn(gameBoard,condition = False):
-    print(players["player2"] + ", it's your turn!")
+def player2Turn(gameBoard, condition=False):
+    print(f"{players['player2']}, it's your turn!")
     print("Please enter the column number you want to place your piece in:")
-    column = input()
+    
+    # Ensure column is converted to an integer
+    column = int(input())
+    
     # place piece
-    gameBoard[0][column] = 1
-    print(gameBoard)
-    return gameBoard,condition
+    for i in range(5, -1, -1):
+        if gameBoard[i][column] == 0:
+            gameBoard[i][column] = 2
+            break
+
+    print(pd.DataFrame(gameBoard))
+    return gameBoard, condition
 
 players = {"player1": 0, "player2": 0}
 
